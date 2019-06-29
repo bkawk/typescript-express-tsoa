@@ -1,6 +1,5 @@
 import * as dotenv from "dotenv"
 import * as express from 'express'
-import * as socketio from "socket.io";
 import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
 import * as helmet from 'helmet'
@@ -21,7 +20,7 @@ mongoose.connection.on('error', () => {
 // Configure CORS
 const corsOptions = {
   origin: (origin: any, callback: any) => {
-    if (origin == undefined || process.env.CORS_WHITELIST && process.env.CORS_WHITELIST.indexOf(origin) !== -1) callback(null, true);
+    if (process.env.CORS_WHITELIST && process.env.CORS_WHITELIST.indexOf(origin) !== -1) callback(null, true);
     else callback('Not allowed by CORS');
   },
   allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With', 'Accept'],
@@ -30,21 +29,17 @@ const corsOptions = {
 
 // Configure App
 const app = express();
-const http = require("http").Server(app);
-app.set("port", process.env.PORT || 8888);
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use('/', routes);
-
-// Configure Sockets
-let io = require("socket.io")(http);
-require('./sockets')(io);
+let http = require("http").Server(app);
+require('./sockets')(require("socket.io")(http));
 
 // Start Server
 const port = process.env.API_PORT;
-http.listen(port, function() {
+http.listen(port, ()=> {
   console.log(`listening on ${port}`);
 });
 

@@ -4,7 +4,7 @@ import { check, validationResult } from 'express-validator';
 const router: Router = Router();
 
 router.post('/', [
-    check('username').isEmail(),
+    check('email').isEmail(),
     check('password').isLength({ min: 5 })
     ],(req: Request, res: Response) => {
       const errors = validationResult(req);

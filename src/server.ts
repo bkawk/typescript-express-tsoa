@@ -21,30 +21,29 @@ mongoose.connection.on('error', () => {
 // Configure CORS
 const corsOptions = {
   origin: (origin: any, callback: any) => {
-    if (origin == undefined || process.env.CORS_WHITELIST && process.env.CORS_WHITELIST.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else { callback('Not allowed by CORS')}
+    if (origin == undefined || process.env.CORS_WHITELIST && process.env.CORS_WHITELIST.indexOf(origin) !== -1) callback(null, true);
+    else callback('Not allowed by CORS');
   },
   allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With', 'Accept'],
-  methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
-  optionsSuccessStatus: 200,
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'], optionsSuccessStatus: 200,
 };
 
 // Configure App
 const app = express();
-const port = process.env.API_PORT;
+const http = require("http").Server(app);
+app.set("port", process.env.PORT || 8888);
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.set("port", port || 8888);
 app.use('/', routes);
-let http = require("http").Server(app);
+
+// Configure Sockets
 let io = require("socket.io")(http);
-require('./socket')(io);
+require('./sockets')(io);
 
 // Start Server
+const port = process.env.API_PORT;
 http.listen(port, function() {
   console.log(`listening on ${port}`);
 });

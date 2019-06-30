@@ -1,27 +1,26 @@
 import { Router, Request, Response } from 'express';
 import { check, validationResult } from 'express-validator';
+import { UserModel } from '../models/user';
 
 const router: Router = Router();
 
 router.post('/register', [
     check('email').isEmail(),
     check('password').isLength({ min: 5 })
-    ],(req: Request, res: Response) => {
+    ], async (req: Request, res: Response) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
       } else {
-        // send email and password to controller
-        // should this be an async call?
-        // Insert to database
-        res.send('You have registered!');
+        const email = req.body['email'];
+        const password = req.body['password'];
+        const user = new UserModel({email, password});
+        await user.save()
+        res.end();
       }
-
 });
 
 export = router;
-
-
 
 
 // router.get('/', (req: Request, res: Response) => {

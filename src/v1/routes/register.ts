@@ -3,15 +3,20 @@ import { check, validationResult } from 'express-validator';
 
 const router: Router = Router();
 
-router.post('/', [
+router.post('/register', [
     check('email').isEmail(),
     check('password').isLength({ min: 5 })
     ],(req: Request, res: Response) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
+      } else {
+        // send email and password to controller
+        // should this be an async call?
+        // Insert to database
+        res.send('You have registered!');
       }
-      res.send('Hello, World!');
+
 });
 
 export = router;

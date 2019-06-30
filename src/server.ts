@@ -6,7 +6,7 @@ import * as helmet from 'helmet'
 import * as morgan from 'morgan'
 import * as mongoose from 'mongoose';
 import * as bluebird from "bluebird";
-import * as routes from "./routes";
+import * as routes from "./v1/routes/routes";
 // Set env values
 dotenv.config();
 
@@ -36,7 +36,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use('/', routes);
 let http = require("http").Server(app);
-require('./sockets')(require("socket.io")(http));
+require('./v1/sockets')(require("socket.io")(http));
 
 // Start Server
 const port = process.env.API_PORT;

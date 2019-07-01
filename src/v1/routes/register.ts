@@ -1,22 +1,24 @@
 import { Router, Request, Response } from 'express';
 import { check, validationResult } from 'express-validator';
-import { UserModel } from '../models/user';
+import register from '../controllers/register';
 
 const router: Router = Router();
 
 router.post('/register', [
     check('email').isEmail(),
-    check('password').isLength({ min: 5 })
+    check('password').isLength({ min: 5 }),
     ], async (req: Request, res: Response) => {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(422).json({ errors: errors.array() });
-      } else {
-        const email = req.body['email'];
-        const password = req.body['password'];
-        const user = new UserModel({email, password});
-        await user.save()
-        res.end();
+      try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          return res.status(422).json({ errors: errors.array() });
+        } else {
+          const data = await register.registerUserController(req);
+          res.send(data);
+        }
+      } catch (err) {
+        console.log(err);
+        res.send(err);
       }
 });
 
@@ -35,8 +37,3 @@ export = router;
 // router.get("/socket", (req: any, res: any) => {
 //     res.sendFile(path.resolve("./src/client/index.html"));
 //   });
-
-
-
-
-  

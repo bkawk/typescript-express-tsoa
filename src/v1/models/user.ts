@@ -10,6 +10,15 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true }
 });
 
-const UserModel = mongoose.model('User', UserSchema);
+async function newUser(email: string, password: string) {
+  const UserModel = mongoose.model<IUser>('User', UserSchema);
+  const user : IUser =  new UserModel({email, password});
+  await user.save();
+}
 
-export { UserModel, IUser }
+
+//const UserModel = mongoose.model('User', UserSchema);
+
+export default {
+  newUser
+};

@@ -20,7 +20,6 @@ mongoose.connection.on('error', () => {
 // Configure CORS
 const corsOptions = {
   origin: (origin: any, callback: any) => {
-    console.log(origin);
     if (process.env.CORS_WHITELIST && process.env.CORS_WHITELIST.indexOf(origin) !== -1) callback(null, true);
     else callback('Not allowed by CORS');
   },

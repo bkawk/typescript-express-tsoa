@@ -48,7 +48,44 @@
 		}
 	},
 	"paths": {
-		"/api/register/user": {
+		"/user/register": {
+			"post": {
+				"operationId": "registerUser",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/IResponse"
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"schema": {
+							"$ref": "#/definitions/IResponse"
+						}
+					}
+				},
+				"description": "This is a description of the register user method",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/RUserw"
+						}
+					}
+				]
+			}
+		},
+		"/user/authenticate": {
 			"post": {
 				"operationId": "registerUser",
 				"produces": [

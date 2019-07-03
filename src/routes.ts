@@ -21,7 +21,7 @@ const models: TsoaRoute.Models = {
 const validationService = new ValidationService(models);
 
 export function RegisterRoutes(app: express.Express) {
-    app.post('/api/register/user',
+    app.post('/user/register',
         function(request: any, response: any, next: any) {
             const args = {
                 body: { "in": "body", "name": "body", "required": true, "ref": "RUserw" },
@@ -38,6 +38,25 @@ export function RegisterRoutes(app: express.Express) {
 
 
             const promise = controller.createUser.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/user/authenticate',
+        function(request: any, response: any, next: any) {
+            const args = {
+                body: { "in": "body", "name": "body", "required": true, "ref": "RUserw" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RegisterController();
+
+
+            const promise = controller.authUser.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
 

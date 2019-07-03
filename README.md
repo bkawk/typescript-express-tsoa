@@ -22,7 +22,7 @@ Modify endpoints at ```/src/v1/controllers/register``` and your routes file will
 aspnetcore, csharp, csharp-dotnet2, dynamic-html, html, html2, java, jaxrs-cxf-client, jaxrs-cxf, inflector, jaxrs-cxf-cdi, jaxrs-spec, jaxrs-jersey, jaxrs-di, jaxrs-resteasy-eap, jaxrs-resteasy, spring, nodejs-server, openapi, openapi-yaml, kotlin-client, kotlin-server, php, python, python-flask, scala, scala-akka-http-server, swift3, swift4, typescript-angular
 
 ## Generate SDK
-swagger-codegen generate -i swagger.json -l <language> -o sdk/<language>
+swagger-codegen generate -i swagger.json -l $language -o sdk/$language
 
 ## Contributing  
 Join our Google Hangout Chat:  

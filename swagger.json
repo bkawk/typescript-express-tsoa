@@ -1,0 +1,99 @@
+{
+	"basePath": "/",
+	"consumes": [
+		"application/json"
+	],
+	"definitions": {
+		"IResponse": {
+			"properties": {
+				"message": {
+					"type": "string"
+				},
+				"status": {
+					"type": "string"
+				},
+				"data": {
+					"type": "object"
+				}
+			},
+			"required": [
+				"message",
+				"status",
+				"data"
+			],
+			"type": "object"
+		},
+		"RUserw": {
+			"properties": {
+				"email": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"email",
+				"password"
+			],
+			"type": "object"
+		}
+	},
+	"info": {
+		"title": "typescript-express",
+		"version": "3.0.0",
+		"description": "API description can go here",
+		"license": {
+			"name": "MIT"
+		}
+	},
+	"paths": {
+		"/api/register/user": {
+			"post": {
+				"operationId": "registerUser",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/IResponse"
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"schema": {
+							"$ref": "#/definitions/IResponse"
+						}
+					}
+				},
+				"description": "This is a description of the register user method",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/RUserw"
+						}
+					}
+				]
+			}
+		}
+	},
+	"produces": [
+		"application/json"
+	],
+	"swagger": "2.0",
+	"securityDefinitions": {},
+	"host": "localhost:8888",
+	"schemes": [
+		"http",
+		"https"
+	]
+}

@@ -4,6 +4,19 @@ import { RegisterController } from './controllers/register';
 import * as express from 'express';
 
 const models: TsoaRoute.Models = {
+    "IResponse": {
+        "properties": {
+            "message": { "dataType": "string", "required": true },
+            "status": { "dataType": "string", "required": true },
+            "data": { "dataType": "any", "required": true },
+        },
+    },
+    "RUserw": {
+        "properties": {
+            "email": { "dataType": "string", "required": true },
+            "password": { "dataType": "string", "required": true },
+        },
+    },
 };
 const validationService = new ValidationService(models);
 
@@ -11,8 +24,7 @@ export function RegisterRoutes(app: express.Express) {
     app.post('/api/register/user',
         function(request: any, response: any, next: any) {
             const args = {
-                email: { "in": "body-prop", "name": "email", "required": true, "dataType": "string" },
-                password: { "in": "body-prop", "name": "password", "required": true, "dataType": "string" },
+                body: { "in": "body", "name": "body", "required": true, "ref": "RUserw" },
             };
 
             let validatedArgs: any[] = [];
@@ -25,7 +37,7 @@ export function RegisterRoutes(app: express.Express) {
             const controller = new RegisterController();
 
 
-            const promise = controller.create.apply(controller, validatedArgs as any);
+            const promise = controller.createUser.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
 

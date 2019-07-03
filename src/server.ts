@@ -34,6 +34,7 @@ const app = express();
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(cors(corsOptions));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 //app.use('/', routes);
 let http = require("http").Server(app);

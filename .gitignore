@@ -62,6 +62,3 @@ typings/
 
 # dist folder
 dist
-
-swagger.json
-/src/routes/*

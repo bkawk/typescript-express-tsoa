@@ -1,7 +1,13 @@
 {
 	"swagger": {
 		"outputDirectory": ".",
-		"entryFile": "./src/server.ts"
+		"entryFile": "./src/server.ts",
+		"host": "localhost:8888",
+		"basePath": "/",
+		"schemes": [ "http", "https" ],
+		"description": "API description can go here",
+		"version": "3.0.0",
+		"contect": "sdsdfsdf"
 	},
 	"routes": {
 		"basePath": "/",

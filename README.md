@@ -1,5 +1,5 @@
 # typescript-express  
-An API in Typescript with MongoDB, Express, and Swagger all in one.  
+An API Starting point in Typescript & Express connecting to MongoDB. Self Generates Swagger document that can then be converted into an SDK in many languages.  
 
 ## Installation  
 ``` git clone https://github.com/bkawk/typeScript-express ```  
@@ -15,6 +15,8 @@ An API in Typescript with MongoDB, Express, and Swagger all in one.
 Swagger docs will be served to http://127.0.0.1:8888/docs  
 
 API Example Endpoints are accessable at http://127.0.0.1:8888/api/v1/register/user  
+
+WebSocket test at http://127.0.0.1:8888/socket  
 
 Modify endpoints at ```/src/v1/controllers/register``` and your routes file will be automatically updated when you run the server again via ```npm run watch```.  
 

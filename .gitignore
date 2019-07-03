@@ -64,4 +64,4 @@ typings/
 dist
 
 swagger.json
-/src/v1/routes/*
+/src/routes/*

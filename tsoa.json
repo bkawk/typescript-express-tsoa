@@ -6,6 +6,6 @@
 	"routes": {
 		"basePath": "/",
 		"entryFile": "./src/server.ts",
-		"routesDir": "./src/v1/routes"
+		"routesDir": "./src/"
 	}
 }

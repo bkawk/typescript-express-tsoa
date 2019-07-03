@@ -7,15 +7,14 @@ import * as morgan from 'morgan'
 import * as mongoose from 'mongoose';
 import * as bluebird from "bluebird";
 import * as swaggerUi from 'swagger-ui-express';
-import './v1/controllers/register';
-import { RegisterRoutes } from './v1/routes/routes';
+import { RegisterRoutes } from './routes';
 
 // Set env values
 dotenv.config();
 
 // Connect to MongoDB
 (<any>mongoose).Promise = bluebird;
-mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true`, {useNewUrlParser: true});
+mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true`, {useCreateIndex: true, useNewUrlParser: true});
 mongoose.connection.on('error', () => {
   throw new Error(`unable to connect to database: ${process.env.DB_NAME}`);
 });
@@ -38,7 +37,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 //app.use('/', routes);
 let http = require("http").Server(app);
-require('./v1/sockets')(require("socket.io")(http));
+require('./sockets')(require("socket.io")(http));
 
 // Start Server
 const port = process.env.API_PORT;

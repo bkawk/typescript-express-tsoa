@@ -1,4 +1,5 @@
 import * as dotenv from "dotenv"
+import * as path from "path";
 import * as express from 'express'
 import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
@@ -45,6 +46,11 @@ const port = process.env.API_PORT;
 http.listen(port, ()=> {
   console.log(`listening on ${port}`);
 });
+
+// Serve Socket test page
+app.get("/socket", (req: any, res: any) => {
+    res.sendFile(path.resolve("./src/client/index.html"));
+  });
 
 // Start Swagger Docs
 RegisterRoutes(app);

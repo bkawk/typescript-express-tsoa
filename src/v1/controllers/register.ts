@@ -1,14 +1,15 @@
 import register from '../models/user';
+import { Request } from 'express';
 
-async function registerUserController (req: any) {
+async function registerUserController (req: Request) {
   try {
-    const email = req.body['email'];
-    const password = req.body['password'];
+    const {email, password} = req.body;
     const data = await register.newUser(email, password);
-    return {data: true}};
-  } catch (err) {
-    return (err);
+    return {data: true}
   }
+  catch(err) {
+    return err;
+  } 
 }
 
 export default {

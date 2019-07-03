@@ -4,7 +4,7 @@ import register from '../controllers/register';
 
 const router: Router = Router();
 
-router.post('/register', [
+router.post('/user', [
     check('email').isEmail(),
     check('password').isLength({ min: 5 }),
     ], async (req: Request, res: Response) => {
@@ -17,7 +17,6 @@ router.post('/register', [
           res.send(data);
         }
       } catch (err) {
-        console.log(err);
         res.send(err);
       }
 });

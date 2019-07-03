@@ -1,4 +1,4 @@
-# typeScript-express  
+# typescript-express  
 An API in Typescript with MongoDB, Express, and Swagger all in one.  
 
 ## Installation  

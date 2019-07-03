@@ -11,8 +11,8 @@
     "build": "tsc",
     "watch-ts": "tsc -w",
     "watch-node": "nodemon dist/server.js",
-    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript, Node\" -c \"yello.bold, cyan.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
-    "generate": "tsoa swagger && tsoa routes"
+    "generate": "tsoa swagger && tsoa routes",
+    "watch": "npm run generate && concurrently -k -p \"[{name}]\" -n \"TypeScript, Node\" -c \"yello.bold, cyan.bold\" \"npm run watch-ts\" \"npm run watch-node\""
   },
   "repository": {
     "type": "git",
@@ -44,6 +44,7 @@
     "@types/mongoose": "^5.5.6",
     "@types/morgan": "^1.7.35",
     "@types/socket.io": "^2.1.2",
+    "@types/swagger-ui-express": "^3.0.1",
     "bluebird": "^3.5.5",
     "body-parser": "^1.19.0",
     "compress": "^0.99.0",

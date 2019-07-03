@@ -1,17 +1,11 @@
-import register from '../models/user';
-import { Request } from 'express';
+import { UserModel, IUser } from '../models/user';
+import { Route, Get, Controller, Post, BodyProp, Put, Delete, SuccessResponse } from 'tsoa';
 
-async function registerUserController (req: Request) {
-  try {
-    const {email, password} = req.body;
-    const data = await register.newUser(email, password);
-    return {data: true}
+@Route('/api/v1/register')
+export class RegisterController extends Controller {
+  @Post('/user')
+  public async create(@BodyProp('email') email: string, @BodyProp('password') password: string): Promise<void> {
+        const user : IUser =  new UserModel({email, password});
+        await user.save();
   }
-  catch(err) {
-    return err;
-  } 
 }
-
-export default {
-  registerUserController
-};

@@ -6,7 +6,10 @@ import * as helmet from 'helmet'
 import * as morgan from 'morgan'
 import * as mongoose from 'mongoose';
 import * as bluebird from "bluebird";
-import * as routes from "./v1/routes/routes";
+import * as swaggerUi from 'swagger-ui-express';
+import './v1/controllers/register';
+import { RegisterRoutes } from './v1/routes/routes';
+
 // Set env values
 dotenv.config();
 
@@ -33,7 +36,7 @@ app.use(helmet());
 app.use(morgan('dev'));
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use('/', routes);
+//app.use('/', routes);
 let http = require("http").Server(app);
 require('./v1/sockets')(require("socket.io")(http));
 
@@ -42,5 +45,14 @@ const port = process.env.API_PORT;
 http.listen(port, ()=> {
   console.log(`listening on ${port}`);
 });
+
+// Start Swagger Docs
+RegisterRoutes(app);
+try {
+    const swaggerDocument = require('../swagger.json');
+    app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+} catch (err) {
+    console.log('Unable to load swagger.json', err);
+}
 
 export = app;

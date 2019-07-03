@@ -105,7 +105,7 @@
 						}
 					}
 				},
-				"description": "This is a description of the register user method",
+				"description": "This is a description of the authenticate user method",
 				"tags": [
 					"Users"
 				],

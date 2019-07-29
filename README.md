@@ -35,7 +35,3 @@ install [swagger-codegen](https://swagger.io/docs/open-source-tools/swagger-code
 swagger-codegen generate -i swagger.json -l $language -o sdk/$language
 ```
 
-## Contributing  
-Join our Google [Hangout Chat](https://hangouts.google.com/group/bAFRQEwL4CFK47328)  
-
-

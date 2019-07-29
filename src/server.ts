@@ -20,6 +20,15 @@ mongoose.connection.on('error', () => {
   throw new Error(`unable to connect to database: ${process.env.DB_NAME}`);
 });
 
+// Configure Rate Limiter
+const { RateLimiterMongo } = require('rate-limiter-flexible');
+const rateLimiterMongo = new RateLimiterMongo({storeClient: mongoose.connection, points: 4, duration: 1}); // 4 request in 1 second per ip address
+const rateLimiter = (req: any, res: any, next: any) => {
+  rateLimiterMongo.consume(req.ip)
+    .then(() => next())
+    .catch(() => res.status(429).send('Whoa! Slow down there little buddy'));
+};
+
 // Configure CORS
 const corsOptions = {
   origin: (origin: any, callback: any) => {
@@ -35,6 +44,7 @@ const app = express();
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(cors(corsOptions));
+app.use(rateLimiter);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 let http = require("http").Server(app);

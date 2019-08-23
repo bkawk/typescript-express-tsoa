@@ -1,4 +1,4 @@
-# typescript-express  
+# typescript-express-tsoa
 An API Starting point in Typescript & Express connecting to MongoDB. Self Generates Swagger document that can then be converted into an SDK in many languages.  
 
 ## Installation  
